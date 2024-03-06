@@ -3,24 +3,23 @@ const axios = require('axios');
 
 const getSiteInfo = async (req, res, next) => {
     try {
-        console.log(`[INFO] getSiteInfo: with payload >>`)
-
         let siteInfo = await axios({
             method: 'POST',
-            url: 'https://booking-kohl-six.vercel.app/siteInfo'
+            url: `${process.env.HOST_VERCEL_BOOKING}/siteInfo`
         });
 
-        siteInfo = siteInfo?.data
-        console.log(siteInfo?.data);
+        if (siteInfo?.status === 200) {
+            res.json({
+                ...siteInfo?.data
+            });
+        } else {
+            throw new Error('Lỗi call api');
+        }
 
-        res.json({
-            ...siteInfo
-        });
     } catch (error) {
         console.log(`[ERROR] getSiteInfo: ${error.message}`)
     }
 };
-
 
 module.exports = {
     getSiteInfo

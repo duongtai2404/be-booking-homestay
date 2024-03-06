@@ -4,16 +4,17 @@ const axios = require('axios');
 
 const checkAvailable = async (req, res, next) => {
     try {
-        console.log(`[INFO] checkAvailable: with payload >> ${JSON.stringify(req?.body)}`)
+        console.log(` checkAvailable: with payload >> ${JSON.stringify(req?.body)}`)
         // let { roomId, from, to } = req.body;
 
         let checkAvailable = await axios({
             method: 'POST',
-            url: 'https://booking-kohl-six.vercel.app/room/checkAvailable',
+            url: `${process.env.HOST_VERCEL_BOOKING}/room/checkAvailable`,
             data: {
                 ...req?.body
             }
         });
+        console.log(`Response /room/checkAvailable >> ${JSON.stringify(checkAvailable?.data)}`);
 
         if (checkAvailable?.status === 200) {
             res.status(200).json({
@@ -31,12 +32,9 @@ const checkAvailable = async (req, res, next) => {
 
 const searchRoom = async (req, res, next) => {
     try {
-        console.log(`[INFO] searchRoom: with payload >> ${JSON.stringify(req?.body)}`)
-        // let { roomId, from, to } = req.body;
-
         let searchRoom = await axios({
             method: 'POST',
-            url: 'https://booking-kohl-six.vercel.app/room/search',
+            url: `${process.env.HOST_VERCEL_BOOKING}/room/search`,
             data: {
                 ...req?.body
             }
