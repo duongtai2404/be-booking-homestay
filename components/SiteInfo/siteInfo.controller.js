@@ -17,7 +17,7 @@ const getSiteInfo = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log(`[ERROR] getSiteInfo: ${error.message}`)
+        console.log(`[ERROR ] getSiteInfo: ${error.message}`)
     }
 };
 
